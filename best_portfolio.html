@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- ============================================================
+     PORTFOLIO — Amonius Shehata Waheb
+     Single-file version: HTML + CSS + JavaScript
+     ============================================================
+     SECTIONS (للتنقل السريع):
+       1. HEAD          — Meta tags, fonts, icons
+       2. CSS           — كل الـ styles داخل <style>
+       3. BODY / HTML   — هيكل الصفحة
+          3a. Header / Nav
+          3b. Hero Section
+          3c. About Section
+          3d. Experience Section
+          3e. Projects Section
+          3f. Skills Section
+          3g. Education Section
+          3h. Contact Section
+          3i. Footer
+       4. JAVASCRIPT    — Canvas animation + Scroll effects داخل <script>
+     ============================================================ -->
+
+
+<!-- ============================================================
+     1. HEAD — Meta tags, Google Fonts, Font Awesome
+     ============================================================ -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amonius Shehata | ML Engineer Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&display=swap">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<!-- ============================================================
+     2. CSS — كل الـ styles
+     ============================================================ -->
+<style>
+
+    /* ── CSS Variables (الألوان والثوابت) ── */
+    :root {
+        --bg-color: #020617;
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --primary: #38bdf8;
+        --secondary: #10b981;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --accent: #818cf8;
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --nav-height: 70px;
+    }
+
+    /* ── Reset ── */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    /* ── Canvas Background (particle network) ── */
+    canvas#network-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.3;
+    }
+
+    /* ── Container ── */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* ── Glassmorphism Utility ── */
+    .glass {
+        background: var(--card-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: 1rem;
+    }
+
+    /* ── Header / Nav ── */
+    header {
+        height: var(--nav-height);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        font-family: 'Roboto Mono', monospace;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+        color: var(--primary);
+    }
+
+    /* ── Sections ── */
+    section {
+        padding: 100px 0;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        text-align: center;
+        font-weight: 700;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* ── Hero Section ── */
+    .hero {
+        min-height: 100vh;
+        padding-top: calc(var(--nav-height) + 2rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+    }
+
+    .hero .subtitle {
+        font-size: 1.5rem;
+        color: var(--primary);
+        font-family: 'Roboto Mono', monospace;
+        margin-bottom: 1rem;
+    }
+
+    .hero p {
+        max-width: 600px;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* ── Profile Image ── */
+    .profile-image-wrapper {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 1.8rem;
+    }
+
+    .profile-image {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+        border: 3px solid var(--primary);
+        box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.15), 0 0 30px rgba(56, 189, 248, 0.25);
+        display: block;
+    }
+
+    .profile-placeholder {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        border: 3px solid var(--primary);
+        box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4.5rem;
+        color: var(--primary);
+    }
+
+    /* ── Hero Buttons ── */
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .btn-primary {
+        padding: 0.75rem 2rem;
+        background: var(--primary);
+        color: #020617;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.95rem;
+        transition: opacity 0.3s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+        opacity: 0.85;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        padding: 0.75rem 2rem;
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(56, 189, 248, 0.1);
+        transform: translateY(-2px);
+    }
+
+    /* ── Social Icons in Hero ── */
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .social-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: background 0.3s, transform 0.2s, border-color 0.3s;
+    }
+
+    .social-icon:hover {
+        background: rgba(56, 189, 248, 0.25);
+        border-color: var(--primary);
+        transform: translateY(-3px);
+    }
+
+    /* ── Cards & Grid ── */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .card {
+        padding: 2rem;
+        transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+    }
+
+    .card h3 {
+        margin-bottom: 1rem;
+        color: var(--primary);
+    }
+
+    /* ── Skills Tags ── */
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+
+    .tag {
+        background: rgba(56, 189, 248, 0.1);
+        color: var(--primary);
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* ── Experience ── */
+    .exp-item {
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+
+    .exp-date {
+        color: var(--text-secondary);
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.9rem;
+    }
+
+    /* ── Project Cards with GitHub Link ── */
+    .project-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        gap: 1rem;
+    }
+
+    .project-header h3 {
+        margin-bottom: 0;
+        flex: 1;
+    }
+
+    .github-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: rgba(56, 189, 248, 0.08);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        color: var(--primary);
+        padding: 0.3rem 0.8rem;
+        border-radius: 0.4rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background 0.25s, transform 0.2s;
+        flex-shrink: 0;
+    }
+
+    .github-link:hover {
+        background: rgba(56, 189, 248, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .github-link i {
+        font-size: 1rem;
+    }
+
+    /* ── Contact Section ── */
+    .contact-card {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 3rem 2.5rem;
+    }
+
+    .contact-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.2rem 1.4rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--glass-border);
+        border-radius: 0.75rem;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: border-color 0.3s, transform 0.2s, background 0.3s;
+    }
+
+    .contact-item:hover {
+        border-color: var(--primary);
+        background: rgba(56, 189, 248, 0.05);
+        transform: translateY(-3px);
+    }
+
+    .contact-icon-wrap {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        flex-shrink: 0;
+    }
+
+    /* ألوان أيقونات التواصل */
+    .github-color   { background: rgba(255, 255, 255, 0.08); color: #fff; }
+    .linkedin-color { background: rgba(10, 102, 194, 0.2);   color: #0A66C2; }
+    .email-color    { background: rgba(234, 68, 53, 0.15);   color: #EA4335; }
+    .whatsapp-color { background: rgba(37, 211, 102, 0.15);  color: #25D366; }
+
+    .contact-label {
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+    }
+
+    .contact-value {
+        font-size: 0.92rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-top: 0.1rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+        .hero h1          { font-size: 2.4rem; }
+        .hero .subtitle   { font-size: 1.1rem; }
+        .nav-links        { display: none; }
+        .contact-links    { grid-template-columns: 1fr 1fr; }
+        .project-header   { flex-direction: column; align-items: flex-start; }
+    }
+
+</style>
+</head>
+
+
+<!-- ============================================================
+     3. BODY / HTML — هيكل الصفحة
+     ============================================================ -->
+<body>
+
+    <!-- Canvas للـ particle network في الخلفية -->
+    <canvas id="network-canvas"></canvas>
+
+
+    <!-- ── 3a. Header / Nav ── -->
+    <header class="glass">
+        <div class="container">
+            <nav>
+                <div class="logo">AS.DATA</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- ── 3b. Hero Section ── -->
+        <section class="hero container">
+
+            <!-- الصورة الشخصية — ضع صورتك بنفس اسم portfolio.html في نفس الفولدر واسمها profile.jpg -->
+            <div class="profile-image-wrapper">
+                <img
+                    src="https://github.com/amonuswaheb/profile_photo/raw/main/profile.jpg"
+                    alt="Amonius Shehata Waheb"
+                    class="profile-image"
+                    onerror="this.style.display='none'; document.getElementById('profile-placeholder').style.display='flex';"
+                />
+                <!-- بيظهر لو الصورة مش موجودة -->
+                <div id="profile-placeholder" class="profile-placeholder" style="display:none;">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+
+            <h1>Amonius Shehata Waheb</h1>
+            <div class="subtitle">Junior Machine Learning Engineer</div>
+            <p>
+                I help turn messy data into clean, usable datasets to support machine learning models
+                and data-driven decisions.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#projects" class="btn-primary">View My Work</a>
+                <a href="#contact" class="btn-secondary">Get In Touch</a>
+            </div>
+
+            <!-- أيقونات التواصل السريع -->
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/amonus-shehata-waheb-394889348/" target="_blank" class="social-icon" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="/cdn-cgi/l/email-protection#06676b6968737571676e636446616b676f6a2865696b" class="social-icon" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://wa.me/201223527005" target="_blank" class="social-icon" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+        </section>
+
+
+        <!-- ── 3c. About Section ── -->
+        <section id="about" class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="glass card">
+                <p>
+                    I'm a computer science student focused on machine learning and data analysis. I specialize in
+                    cleaning, preprocessing, and exploring datasets, and building supervised machine learning models
+                    using Python, Pandas, and Scikit-learn.
+                    <br><br>
+                    I also deploy trained models as web applications using Flask and Streamlit to make them practical
+                    in real-world scenarios.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ── 3d. Experience Section ── -->
+        <section id="experience" class="container">
+            <h2 class="section-title">Practical Experience</h2>
+            <div class="glass exp-item">
+                <div class="exp-header">
+                    <div>
+                        <h3>National Telecommunication Institute (NTI)</h3>
+                        <div style="color: var(--secondary); font-weight: 500;">On-site Training</div>
+                    </div>
+                    <div class="exp-date">2025</div>
+                </div>
+                <ul>
+                    <li>Built end-to-end machine learning solutions addressing real-world business and educational problems.</li>
+                    <li>Designed data preprocessing pipelines, including cleaning, encoding, and feature scaling using Pandas and Scikit-learn.</li>
+                    <li>Trained and evaluated supervised ML models (classification &amp; regression) using XGBoost and Scikit-learn.</li>
+                    <li>Deployed trained models as interactive web applications using Flask and Streamlit.</li>
+                </ul>
+            </div>
+        </section>
+
+
+        <!-- ── 3e. Projects Section ── -->
+        <section id="projects" class="container">
+            <h2 class="section-title">Selected Projects</h2>
+            <div class="grid">
+
+                <!-- مشروع 1 — عدّل رابط GitHub هنا -->
+                <div class="glass card project-card">
+                    <div class="project-header">
+                        <h3>Customer Churn Analysis &amp; Prediction</h3>
+                        <a href="https://github.com/YOUR_USERNAME/customer-churn-predictor"
+                           target="_blank"
+                           class="github-link"
+                           title="View on GitHub">
+                            <i class="fab fa-github"></i>
+                            <span>View Code</span>
+                        </a>
+                    </div>
+                    <p>
+                        Built an end-to-end data solution to identify telecom customers at risk of churning.
+                        Implemented XGBoost with a robust preprocessing pipeline and probability-based predictions.
+                        Delivered dual interfaces: a Flask web app and a Streamlit dashboard.
+                    </p>
+                    <p style="margin-top: 0.5rem; color: var(--text-secondary);">
+                        <strong>Outcome:</strong> Helps businesses prioritize high-risk customers and take proactive retention actions.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">Data Cleaning</span>
+                        <span class="tag">EDA</span>
+                        <span class="tag">XGBoost</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">Streamlit</span>
+                    </div>
+                </div>
+
+                <!-- مشروع 2 — عدّل رابط GitHub هنا -->
+                <div class="glass card project-card">
+                    <div class="project-header">
+                        <h3>Student Performance Analysis</h3>
+                        <a href="https://github.com/YOUR_USERNAME/exam-score-predictor"
+                           target="_blank"
+                           class="github-link"
+                           title="View on GitHub">
+                            <i class="fab fa-github"></i>
+                            <span>View Code</span>
+                        </a>
+                    </div>
+                    <p>
+                        Analyzed student behavioral and academic data to identify factors affecting exam performance.
+                        Built a regression model and batch prediction pipeline to support performance analysis and
+                        improvement planning. Deployed using Flask and Streamlit.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">Data Analysis</span>
+                        <span class="tag">Regression</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">Batch Prediction</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ── 3f. Skills Section ── -->
+        <section id="skills" class="container">
+            <h2 class="section-title">Core Skills</h2>
+            <div class="grid">
+
+                <div class="glass card">
+                    <h3 style="font-size: 1.1rem; text-transform: uppercase;">Data Analysis</h3>
+                    <div class="tags">
+                        <span class="tag">Data Cleaning</span>
+                        <span class="tag">EDA</span>
+                        <span class="tag">Feature Engineering</span>
+                        <span class="tag">Data Visualization</span>
+                    </div>
+                </div>
+
+                <div class="glass card">
+                    <h3 style="font-size: 1.1rem; text-transform: uppercase;">Tools &amp; ML</h3>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Pandas</span>
+                        <span class="tag">NumPy</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">XGBoost</span>
+                    </div>
+                </div>
+
+                <div class="glass card">
+                    <h3 style="font-size: 1.1rem; text-transform: uppercase;">Deployment &amp; Web</h3>
+                    <div class="tags">
+                        <span class="tag">Flask</span>
+                        <span class="tag">Streamlit</span>
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ── 3g. Education Section ── -->
+        <section id="education" class="container">
+            <h2 class="section-title">Education &amp; Training</h2>
+            <div class="grid">
+
+                <div class="glass card">
+                    <h3>Bachelor of Computer Science</h3>
+                    <p style="color: var(--text-secondary);">
+                        Arab Academy for Science, Technology, and Maritime Transport
+                    </p>
+                </div>
+
+                <div class="glass card">
+                    <h3>Relevant Training</h3>
+                    <ul style="color: var(--text-secondary); margin-left: 1rem; margin-top: 0.5rem;">
+                        <li>Machine Learning &amp; Data Analysis — NTI</li>
+                        <li>HCIA — Artificial Intelligence — NTI</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ── 3h. Contact Section ── -->
+        <section id="contact" class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="glass card contact-card">
+                <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2.5rem; font-size: 1.1rem;">
+                    Feel free to reach out for collaborations, projects, or just to say hello!
+                </p>
+                <div class="contact-links">
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/amonus-shehata-waheb-394889348/" target="_blank" class="contact-item">
+                        <div class="contact-icon-wrap linkedin-color">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <div>
+                            <div class="contact-label">LinkedIn</div>
+                            <div class="contact-value">Amonius Shehata Waheb</div>
+                        </div>
+                    </a>
+
+                    <!-- Email -->
+                    <a href="/cdn-cgi/l/email-protection#0465696b6a717773656c6166446369656d682a676b69" class="contact-item">
+                        <div class="contact-icon-wrap email-color">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value"><span class="__cf_email__" data-cfemail="a3c2cecccdd6d0d4c2cbc6c1e3c4cec2cacf8dc0ccce">[email&#160;protected]</span></div>
+                        </div>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/201223527005" target="_blank" class="contact-item">
+                        <div class="contact-icon-wrap whatsapp-color">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <div class="contact-label">WhatsApp</div>
+                            <div class="contact-value">+20 122 352 7005</div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ── 3i. Footer ── -->
+    <footer style="text-align: center; padding: 4rem 0; border-top: 1px solid var(--glass-border);">
+        <p style="color: var(--text-secondary);">
+            &copy; 2025 Amonius Shehata. Built with <span style="color: var(--primary);">Data &amp; Insight</span>.
+        </p>
+    </footer>
+
+
+<!-- ============================================================
+     4. JAVASCRIPT — Canvas Particle Network + Scroll Animations
+     ============================================================ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+    /* ── Canvas Setup ── */
+    const canvas = document.getElementById('network-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const particleCount     = 100;
+    const connectionDistance = 150;
+    const mouseRange        = 150;
+
+    let mouse = { x: null, y: null };
+
+    window.addEventListener('mousemove', (event) => {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
+    /* ── Particle Class ── */
+    class Particle {
+        constructor() { this.reset(); }
+
+        reset() {
+            this.x      = Math.random() * canvas.width;
+            this.y      = Math.random() * canvas.height;
+            this.vx     = (Math.random() - 0.5) * 0.5;
+            this.vy     = (Math.random() - 0.5) * 0.5;
+            this.radius = Math.random() * 2 + 1;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // ارتداد من الحواف
+            if (this.x < 0 || this.x > canvas.width)  this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height)  this.vy *= -1;
+
+            // تفاعل مع الماوس
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < mouseRange) {
+                const force = (mouseRange - distance) / mouseRange;
+                this.x -= dx * force * 0.02;
+                this.y -= dy * force * 0.02;
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#38bdf8';
+            ctx.fill();
+        }
+    }
+
+    /* ── Init & Animate ── */
+    function init() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            // رسم الخطوط بين الجسيمات القريبة
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < connectionDistance) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${1 - distance / connectionDistance})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', init);
+    init();
+    animate();
+
+    /* ── Scroll Fade-in Animation (Intersection Observer) ── */
+    const observerOptions = { threshold: 0.1 };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity    = '1';
+                entry.target.style.transform  = 'translateY(0)';
+            }
+     
