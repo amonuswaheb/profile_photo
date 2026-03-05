@@ -463,6 +463,13 @@
         margin-top: 0.1rem;
     }
 
+    /* ── Scroll Fade-in Initial State ── */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
         .hero h1          { font-size: 2.4rem; }
@@ -508,7 +515,6 @@
         <!-- ── 3b. Hero Section ── -->
         <section class="hero container">
 
-            <!-- الصورة الشخصية — ضع صورتك بنفس اسم portfolio.html في نفس الفولدر واسمها profile.jpg -->
             <div class="profile-image-wrapper">
                 <img
                     src="https://github.com/amonuswaheb/profile_photo/raw/main/profile.jpg"
@@ -516,7 +522,6 @@
                     class="profile-image"
                     onerror="this.style.display='none'; document.getElementById('profile-placeholder').style.display='flex';"
                 />
-                <!-- بيظهر لو الصورة مش موجودة -->
                 <div id="profile-placeholder" class="profile-placeholder" style="display:none;">
                     <i class="fa fa-user"></i>
                 </div>
@@ -534,7 +539,6 @@
                 <a href="#contact" class="btn-secondary">Get In Touch</a>
             </div>
 
-            <!-- أيقونات التواصل السريع -->
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/amonus-shehata-waheb-394889348/" target="_blank" class="social-icon" title="LinkedIn">
                     <i class="fab fa-linkedin-in"></i>
@@ -553,7 +557,7 @@
         <!-- ── 3c. About Section ── -->
         <section id="about" class="container">
             <h2 class="section-title">About Me</h2>
-            <div class="glass card">
+            <div class="glass card fade-in">
                 <p>
                     I am interested in machine learning and data analysis, aspiring to become a Machine Learning
                     and Data Analysis professional. I specialize in cleaning, preprocessing, and exploring datasets,
@@ -569,7 +573,7 @@
         <!-- ── 3d. Experience Section ── -->
         <section id="experience" class="container">
             <h2 class="section-title">Practical Experience</h2>
-            <div class="glass exp-item">
+            <div class="glass exp-item fade-in">
                 <div class="exp-header">
                     <div>
                         <h3>National Telecommunication Institute (NTI)</h3>
@@ -592,8 +596,7 @@
             <h2 class="section-title">Selected Projects</h2>
             <div class="grid">
 
-                <!-- مشروع 1 — عدّل رابط GitHub هنا -->
-                <div class="glass card project-card">
+                <div class="glass card project-card fade-in">
                     <div class="project-header">
                         <h3>Customer Churn Analysis &amp; Prediction</h3>
                         <a href="https://github.com/YOUR_USERNAME/customer-churn-predictor"
@@ -621,8 +624,7 @@
                     </div>
                 </div>
 
-                <!-- مشروع 2 — عدّل رابط GitHub هنا -->
-                <div class="glass card project-card">
+                <div class="glass card project-card fade-in">
                     <div class="project-header">
                         <h3>Student Performance Analysis</h3>
                         <a href="https://github.com/YOUR_USERNAME/exam-score-predictor"
@@ -655,7 +657,7 @@
             <h2 class="section-title">Core Skills</h2>
             <div class="grid">
 
-                <div class="glass card">
+                <div class="glass card fade-in">
                     <h3 style="font-size: 1.1rem; text-transform: uppercase;">Data Analysis</h3>
                     <div class="tags">
                         <span class="tag">Data Cleaning</span>
@@ -665,7 +667,7 @@
                     </div>
                 </div>
 
-                <div class="glass card">
+                <div class="glass card fade-in">
                     <h3 style="font-size: 1.1rem; text-transform: uppercase;">Tools &amp; ML</h3>
                     <div class="tags">
                         <span class="tag">Python</span>
@@ -676,7 +678,7 @@
                     </div>
                 </div>
 
-                <div class="glass card">
+                <div class="glass card fade-in">
                     <h3 style="font-size: 1.1rem; text-transform: uppercase;">Deployment &amp; Web</h3>
                     <div class="tags">
                         <span class="tag">Flask</span>
@@ -696,14 +698,14 @@
             <h2 class="section-title">Education &amp; Training</h2>
             <div class="grid">
 
-                <div class="glass card">
+                <div class="glass card fade-in">
                     <h3>Bachelor of Computer Science</h3>
                     <p style="color: var(--text-secondary);">
                         Arab Academy for Science, Technology, and Maritime Transport
                     </p>
                 </div>
 
-                <div class="glass card">
+                <div class="glass card fade-in">
                     <h3>Relevant Training</h3>
                     <ul style="color: var(--text-secondary); margin-left: 1rem; margin-top: 0.5rem;">
                         <li>Machine Learning &amp; Data Analysis — NTI</li>
@@ -718,13 +720,12 @@
         <!-- ── 3h. Contact Section ── -->
         <section id="contact" class="container">
             <h2 class="section-title">Get In Touch</h2>
-            <div class="glass card contact-card">
+            <div class="glass card contact-card fade-in">
                 <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2.5rem; font-size: 1.1rem;">
                     Feel free to reach out for collaborations, projects, or just to say hello!
                 </p>
                 <div class="contact-links">
 
-                    <!-- LinkedIn -->
                     <a href="https://www.linkedin.com/in/amonus-shehata-waheb-394889348/" target="_blank" class="contact-item">
                         <div class="contact-icon-wrap linkedin-color">
                             <i class="fab fa-linkedin-in"></i>
@@ -735,7 +736,6 @@
                         </div>
                     </a>
 
-                    <!-- Email -->
                     <a href="https://mail.google.com/mail/?view=cm&to=amonuswaheb@gmail.com" target="_blank" class="contact-item">
                         <div class="contact-icon-wrap email-color">
                             <i class="fas fa-envelope"></i>
@@ -746,7 +746,6 @@
                         </div>
                     </a>
 
-                    <!-- WhatsApp -->
                     <a href="https://wa.me/201223527005" target="_blank" class="contact-item">
                         <div class="contact-icon-wrap whatsapp-color">
                             <i class="fab fa-whatsapp"></i>
@@ -775,16 +774,16 @@
 <!-- ============================================================
      4. JAVASCRIPT — Canvas Particle Network + Scroll Animations
      ============================================================ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 
     /* ── Canvas Setup ── */
     const canvas = document.getElementById('network-canvas');
     const ctx = canvas.getContext('2d');
 
     let particles = [];
-    const particleCount     = 100;
+    const particleCount      = 100;
     const connectionDistance = 150;
-    const mouseRange        = 150;
+    const mouseRange         = 150;
 
     let mouse = { x: null, y: null };
 
@@ -814,14 +813,16 @@
             if (this.y < 0 || this.y > canvas.height)  this.vy *= -1;
 
             // تفاعل مع الماوس
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (mouse.x !== null && mouse.y !== null) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance < mouseRange) {
-                const force = (mouseRange - distance) / mouseRange;
-                this.x -= dx * force * 0.02;
-                this.y -= dy * force * 0.02;
+                if (distance < mouseRange) {
+                    const force = (mouseRange - distance) / mouseRange;
+                    this.x -= dx * force * 0.02;
+                    this.y -= dy * force * 0.02;
+                }
             }
         }
 
@@ -874,12 +875,28 @@
     animate();
 
     /* ── Scroll Fade-in Animation (Intersection Observer) ── */
-    const observerOptions = { threshold: 0.1 };
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity    = '1';
-                entry.target.style.transform  = 'translateY(0)';
+                entry.target.style.opacity   = '1';
+                entry.target.style.transform = 'translateY(0)';
+                // بعد ما الـ animation خلصت، نوقف الـ observer على العنصر ده
+                observer.unobserve(entry.target);
             }
-     
+        });
+    }, observerOptions);
+
+    // تطبيق الـ observer على كل عناصر fade-in
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+</script>
+
+</body>
+</html>
