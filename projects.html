@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | Amonius Shehata Waheb</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#020617;--card:rgba(30,41,59,.72);--primary:#38bdf8;--secondary:#10b981;--text:#f8fafc;--muted:#94a3b8;--border:rgba(255,255,255,.1)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6;min-height:100vh}.container{max-width:1100px;margin:auto;padding:0 2rem}
+header{height:70px;position:sticky;top:0;z-index:10;background:rgba(2,6,23,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center}.nav{display:flex;justify-content:space-between;align-items:center}.logo{font:700 1.5rem 'Roboto Mono';color:var(--primary)}nav a{color:var(--muted);text-decoration:none;font-size:.9rem}nav a:hover{color:var(--primary)}
+main{padding:90px 0}.title{text-align:center;font-size:3rem;margin-bottom:.6rem;background:linear-gradient(to right,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.subtitle{text-align:center;color:var(--muted);margin-bottom:2.5rem}
+.search-wrap{max-width:700px;margin:0 auto 3rem;position:relative}.search-wrap i{position:absolute;left:1.2rem;top:50%;transform:translateY(-50%);color:var(--muted)}#search{width:100%;padding:1rem 1rem 1rem 3rem;border:1px solid var(--border);border-radius:.8rem;background:rgba(255,255,255,.04);color:var(--text);font:inherit;outline:none}#search:focus{border-color:var(--primary);box-shadow:0 0 20px rgba(56,189,248,.1)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}.card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:1rem;padding:2rem;transition:.3s}.card:hover{transform:translateY(-5px);border-color:var(--primary)}.head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}.head h2{color:var(--primary);font-size:1.25rem}.head a{color:var(--primary);text-decoration:none;white-space:nowrap}.card p{color:var(--muted);margin-top:1rem}.tags{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.2rem}.tag{padding:.25rem .7rem;border-radius:999px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);color:var(--primary);font-size:.78rem;font-weight:600}.result{color:var(--muted);text-align:center;margin:-1.5rem 0 2rem}.hidden{display:none}@media(max-width:600px){main{padding:60px 0}.title{font-size:2.2rem}.container{padding:0 1rem}}
+</style>
+</head>
+<body>
+<header><div class="container nav"><div class="logo">AS.DATA</div><nav><a href="index.html">← Back to Portfolio</a></nav></div></header>
+<main class="container">
+<h1 class="title">All Projects</h1>
+<p class="subtitle">Explore my machine learning, computer vision, and AI projects.</p>
+<div class="search-wrap"><i class="fas fa-search"></i><input id="search" type="search" placeholder="Search projects, technologies, or topics..." autocomplete="off"></div>
+<div id="result" class="result"></div>
+<div class="grid" id="projects">
+<article class="card project" data-search="endocare ai clinical decision support rag medical ai endometriosis hypertension python langchain chromadb gemini streamlit rag">
+<div class="head"><h2>EndoCare AI — Clinical Decision Support RAG</h2><a href="https://github.com/amonuswaheb/medical-RAG" target="_blank"><i class="fab fa-github"></i></a></div>
+<p>Clinical decision-support application using WHO and ESHRE guideline PDFs, section-aware chunking, BGE-small embeddings, ChromaDB retrieval, Gemini generation, citation validation, safe refusals, Arabic/English translation, Streamlit UI, and a 30-case evaluation suite.</p>
+<div class="tags"><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">ChromaDB</span><span class="tag">Gemini</span><span class="tag">Streamlit</span></div>
+</article>
+<article class="card project" data-search="endometriosis lesion classification computer vision pytorch resnet34 kaggle laparoscopic images">
+<div class="head"><h2>Endometriosis Lesion Classification</h2><span class="tag">Kaggle</span></div>
+<p>Binary classification of endometriosis vs healthy tissue on laparoscopic images using similarity-based grouping, 7-fold stratified group cross-validation, ResNet34, augmentation, and group-bootstrapped confidence intervals.</p>
+<div class="tags"><span class="tag">PyTorch</span><span class="tag">ResNet34</span><span class="tag">Computer Vision</span><span class="tag">Cross-Validation</span></div>
+</article>
+<article class="card project" data-search="skin segmentation pytorch unet++ efficientnet b3 albumentations dice image segmentation">
+<div class="head"><h2>Skin Segmentation</h2><span class="tag">Portfolio</span></div>
+<p>Skin segmentation using U-Net++ with a pretrained EfficientNet-B3 encoder, data augmentation, and a combined Dice + BCE loss. Best validation Dice score: 95.35%.</p>
+<div class="tags"><span class="tag">PyTorch</span><span class="tag">U-Net++</span><span class="tag">EfficientNet-B3</span><span class="tag">Albumentations</span></div>
+</article>
+<article class="card project" data-search="lenet deployment tensorflow cnn flask real time prediction">
+<div class="head"><h2>LeNet Deployment</h2><span class="tag">Deployment</span></div>
+<p>Trained a LeNet convolutional neural network and deployed it as a real-time prediction service through a Flask web interface.</p>
+<div class="tags"><span class="tag">TensorFlow</span><span class="tag">LeNet</span><span class="tag">CNN</span><span class="tag">Flask</span></div>
+</article>
+</div>
+</main>
+<script>
+const input=document.getElementById('search'),cards=[...document.querySelectorAll('.project')],result=document.getElementById('result');
+function filter(){const q=input.value.trim().toLowerCase();let n=0;cards.forEach(c=>{const ok=c.dataset.search.includes(q);c.classList.toggle('hidden',!ok);if(ok)n++});result.textContent=q?(`${n} project${n===1?'':'s'} found`):''}
+input.addEventListener('input',filter);
+</script>
+</body>
+</html>
